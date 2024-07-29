@@ -40,7 +40,7 @@ import React, { useEffect, useState } from 'react'
                     <th scope="col">#</th>
                     <th scope="col">UserName</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Phone</th>
+                    {/* <th scope="col">Phone</th> */}
                     <th scope="col">Action</th>
                     </tr>
                 </thead>
