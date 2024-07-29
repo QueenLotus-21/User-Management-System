@@ -1,0 +1,18 @@
+.container .login{
+   background-color:rgba(var(--bs-primary-rgb));
+   margin-left: -10px;
+   margin-right: -10px;
+   border-radius: 5px;
+}
+
+/* .container .login h2{
+    color: brown;
+} */
+
+.container .register{
+   background-color:rgba(var(--bs-primary-rgb));
+   margin-left: -25px;
+   margin-right: -25px;
+   margin-top: -25px;
+   border-radius: 5px;
+}
