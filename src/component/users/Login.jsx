@@ -8,7 +8,8 @@ import  "../layout/css/styled.css"
         let navigate=useNavigate();
         const emailDom=useRef();
         const passwordDom=useRef();
-       
+        const [successMessage, setSuccessMessage] = useState('');
+        const [errorMessage, setErrorMessage] = useState('');
     
         // const onInputChange=(e)=>{
         //     setUser({... user,[e.target.name]:e.target.value})
@@ -21,7 +22,7 @@ import  "../layout/css/styled.css"
          
 
          if (!emalValue || !passwordValue) {
-            alert("please provide all information");
+            setErrorMessage("please provide all information");
             return;
         }
 
@@ -35,15 +36,15 @@ import  "../layout/css/styled.css"
             console.log(data.success);
             //navigate('/')
             if((data.success) === true){
-                alert("Successfully login")
+                setSuccessMessage("Successfully login")
                 navigate('/')
             }
             else{
-                alert(data?.message)
+                setErrorMessage(data?.message)
             }
         } catch (error) {
             //console.log(error);
-            alert(error?.data?.message)
+            setErrorMessage(error?.data?.message)
         }
             
         } 
@@ -85,6 +86,24 @@ import  "../layout/css/styled.css"
                             <Link className="btn btn-outline-danger mx-2" to="/"> Cancel</Link>
                         </div>
                    </form>  
+
+                   <div className="response text-center p-4">
+            {successMessage && (
+            <div
+                className="p-2"
+                style={{
+                color: "green",
+                fontSize: "25px",
+                background: "rgba(var(--bs-primary-rgb))",
+                }}
+            >
+                {successMessage}
+            </div>
+            )}
+            {errorMessage && (
+            <div style={{ color: "red", fontSize: "35px" }}>{errorMessage}</div>
+            )}
+         </div>
                  
     
                 </div>

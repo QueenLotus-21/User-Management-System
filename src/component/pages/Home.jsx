@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from '../layout/AxiosConfig'
 import React, { useEffect, useState } from 'react'
 
@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
  function Home() {
 
     const [users,setUser]=useState([])
+    const {id}=useParams();
 
      
         async function getAllUser() {
@@ -17,6 +18,11 @@ import React, { useEffect, useState } from 'react'
             } catch (error) {
                 console.log(error)
             }
+     }
+     const deleteUser=async (id)=>{
+        await axios.delete(`/users/delete/${id}`);
+        alert("user successfully deleted")
+        getAllUser();
      }
 
 
@@ -58,7 +64,9 @@ import React, { useEffect, useState } from 'react'
                                 <Link className='btn btn-outline-primary mx-2'
                                 to={`/editUser/${user.id}`}
                                 >Edit</Link>
-                                <button className='btn btn-danger mx-2'>Delete</button>
+                                <button  className='btn btn-danger mx-2'
+                                onClick={()=>deleteUser(user.id)}
+                                >Delete</button>
                             </td>
                       </tr>
                     ))

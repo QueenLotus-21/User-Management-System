@@ -6,6 +6,8 @@ import "../layout/css/styled.css"
 export default function EditUser() {
     let navigate=useNavigate();
     const {id}=useParams();
+    const [successMessage, setSuccessMessage] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const [users,setUser]=useState({
         fullname:"",
@@ -25,9 +27,17 @@ export default function EditUser() {
     const onSubmit=async (e)=> {
         e.preventDefault();
         try {
-            await axios.put(`/users/update/${id}`,users);
-            alert("user Successfully Updated")
-            navigate('/')
+          const data=  await axios.put(`/users/update/${id}`,users);
+          console.log(data.data)
+            if ((data.data.success )=== true) {
+                setSuccessMessage("user Successfully Updated");
+               // navigate('/');
+               
+             }
+             else{
+                setErrorMessage(data.data.message);
+             }
+            
             
         } catch (error) {
             console.log(error)
@@ -45,7 +55,7 @@ export default function EditUser() {
   return (
     <div className='container'>
         <div className="row">
-            <div className="col-md-6 offset-md-3 border rounded p-4 mt-5 shadow">
+            <div className="col-md-6 offset-md-3 border rounded p-4 mt-5 shadow">           
             <div className='register p-2 mb-4' > <h2 className='text-center mb-4'>Update</h2></div>  
                {users &&(
                 <form onSubmit={(e)=>onSubmit(e)}>
@@ -105,7 +115,23 @@ export default function EditUser() {
            </form>  )}
                  
                
-               
+           <div className="response text-center p-4">
+            {successMessage && (
+            <div
+                className="p-2"
+                style={{
+                color: "green",
+                fontSize: "25px",
+                background: "rgba(var(--bs-primary-rgb))",
+                }}
+            >
+                {successMessage}
+            </div>
+            )}
+            {errorMessage && (
+            <div style={{ color: "red", fontSize: "35px" }}>{errorMessage}</div>
+            )}
+         </div>
 
             </div>
         </div>
